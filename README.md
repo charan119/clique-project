@@ -38,7 +38,7 @@ Place the downloaded files in the same folder as the source code.
 3. **Compile the program:**
 
 Use the following command (assuming you have a C++ compiler like g++ installed):
-'g++ -O3 -std=c++11 main.cpp graph.cpp tomita.cpp eppstein.cpp chiba.cpp -o maximal_cliques'
+`g++ -O3 -std=c++11 main.cpp graph.cpp tomita.cpp eppstein.cpp chiba.cpp -o maximal_cliques`
 
 
 ## Usage
@@ -46,13 +46,13 @@ Use the following command (assuming you have a C++ compiler like g++ installed):
 Run the program with one of the dataset files as a command-line argument:
 
 For the Wiki-Vote dataset (smallest)
-'maximal_cliques.exe Wiki-Vote.txt'
+`maximal_cliques.exe Wiki-Vote.txt`
 
 For the Email-Enron dataset (medium)
-'maximal_cliques.exe Email-Enron.txt'
+`maximal_cliques.exe Email-Enron.txt`
 
 For the as-skitter dataset (largest)
-'maximal_cliques.exe as-skitter.txt'
+`maximal_cliques.exe as-skitter.txt`
 
 
 The program will:

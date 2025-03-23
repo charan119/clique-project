@@ -1,23 +1,123 @@
-# Maximal Clique Enumeration Project
+# Maximal Clique Enumeration Algorithms
 
-This project implements and compares three maximal clique enumeration algorithms—Tomita, Eppstein, and Chiba—on the Wiki-Vote and Email-Enron datasets.
+## Project Overview
 
-## Execution Instructions
-1. **Compile**: `g++ -o clique_enum src/main.cpp`
-2. **Run**: `./clique_enum <dataset_file>`
-   - Example: `./clique_enum data/wiki-vote.txt`
-3. **Dependencies**: Standard C++ libraries (no external dependencies).
+This repository contains implementations of three classical maximal clique enumeration algorithms:
+- **Tomita et al.'s algorithm**
+- **Eppstein et al.'s degeneracy-based algorithm**
+- **Chiba and Nishizeki's arboricity-based algorithm**
 
-## Dataset Preparation
-- **Source**: Datasets are available from [SNAP](http://snap.stanford.edu/data/).
-  - Wiki-Vote: `Wiki-Vote.txt`
-  - Email-Enron: `Email-Enron.txt`
-  - As-Skitter: 
-- **Format**: One edge per line (node1 node2).
-- **Preprocessing**: The code converts directed edges to undirected and maps vertices to 0-based indices.
+The project focuses on comparing the performance of these algorithms on real-world network datasets of varying sizes. Maximal clique enumeration is a fundamental problem in graph theory with applications in social network analysis, bioinformatics, and data mining. A clique is a subset of vertices of a graph where every two distinct vertices are connected by an edge; a maximal clique is one that cannot be extended by including any adjacent vertex.
 
-## Individual Contributions
-- [Your Name]: Algorithm implementation, data processing, experiments, visualizations, and report writing.
+## Repository Structure
 
-## Project Webpage
-- [View the project webpage](https://username.github.io/clique-project) (update this link after Step 4).
+This repository consists of six C++ files:
+- `graph.h` – Header file containing graph data structure definitions.
+- `graph.cpp` – Implementation of graph loading and utility functions.
+- `tomita.cpp` – Implementation of Tomita et al.'s algorithm.
+- `eppstein.cpp` – Implementation of Eppstein et al.'s degeneracy-based algorithm.
+- `chiba.cpp` – Implementation of Chiba and Nishizeki's arboricity-based algorithm.
+- `main.cpp` – Main program that coordinates the execution of all algorithms.
+
+## Installation and Setup
+
+1. **Clone the repository:**
+git clone https://github.com/your-username/maximal-clique-enumeration.git
+cd maximal-clique-enumeration
+
+text
+
+2. **Download the datasets:**
+
+Download the following dataset files from our [Google Drive folder](https://drive.google.com/drive/folders/1z9flRqQRqU7CosIcEVFItG1IJpvPN0xO?usp=sharing):
+- `Email-Enron.txt`
+- `Wiki-Vote.txt`
+- `as-skitter.txt`
+
+Place the downloaded files in the same folder as the source code.
+
+3. **Compile the program:**
+
+Use the following command (assuming you have a C++ compiler like g++ installed):
+g++ -O3 -std=c++11 main.cpp graph.cpp tomita.cpp eppstein.cpp chiba.cpp -o maximal_cliques
+
+text
+
+## Usage
+
+Run the program with one of the dataset files as a command-line argument:
+
+For the Wiki-Vote dataset (smallest)
+./maximal_cliques Wiki-Vote.txt
+
+For the Email-Enron dataset (medium)
+./maximal_cliques Email-Enron.txt
+
+For the as-skitter dataset (largest)
+./maximal_cliques as-skitter.txt
+
+text
+
+The program will:
+1. Load the graph from the specified file.
+2. Run all three maximal clique enumeration algorithms and measure each algorithm's execution time.
+3. Report the number of maximal cliques found by each algorithm.
+4. Provide an analysis of the clique size distribution.
+
+## Datasets
+
+The project uses three real-world network datasets sourced from the Stanford Network Analysis Project (SNAP):
+
+- **Wiki-Vote:** Wikipedia voting network with 7,115 nodes and 103,689 edges.
+- **Email-Enron:** Email communication network from Enron with 36,692 nodes and 183,831 edges.
+- **as-Skitter:** Internet topology graph (traceroutes) with 1,696,415 nodes and 11,095,298 edges.
+
+All datasets are available in our [Google Drive folder](https://drive.google.com/drive/folders/1z9flRqQRqU7CosIcEVFItG1IJpvPN0xO?usp=sharing).
+
+## Team Members and Individual Contributions
+
+Our team consists of five members, each contributing to different aspects of the project:
+
+1. **Kasina Sahiti:**
+   - Implemented the Tomita et al. algorithm (`tomita.cpp`).
+   - Assisted with the graph loading functionality.
+   - Conducted performance analysis for small datasets.
+
+2. **Valavala Charan Teja:**
+   - Implemented the Eppstein et al. algorithm (`eppstein.cpp`).
+   - Designed and optimized the degeneracy ordering computation.
+   - Performed performance tuning for medium-sized datasets.
+
+3. **Saksham Daga:**
+   - Implemented the Chiba and Nishizeki algorithm (`chiba.cpp`).
+   - Created the time constraint mechanism for large datasets.
+   - Documented algorithm complexity analysis.
+
+4. **Kunal:**
+   - Developed the graph data structures and utilities (`graph.h`, `graph.cpp`).
+   - Implemented the main integration of the project (`main.cpp`).
+   - Ensured cross-platform compatibility.
+
+5. **Aryan Saini:**
+   - Performed experimental evaluation and analysis.
+   - Created visualizations of the results.
+   - Developed the project website.
+   - Coordinated documentation and project management.
+
+## Project Website
+
+For detailed experimental results, visualizations, and more information about this project, please visit our [project website](https://charan119.github.io/).
+
+## Theoretical Background
+
+The three implemented algorithms provide different approaches for maximal clique enumeration:
+
+- **Tomita et al.'s Algorithm:** Uses a pivot selection strategy within the Bron-Kerbosch framework to reduce the search space.
+- **Eppstein et al.'s Algorithm:** Employs graph degeneracy as a means to limit the number of candidates in sparse graphs.
+- **Chiba and Nishizeki's Algorithm:** Leverages the graph's arboricity to efficiently list all cliques.
+
+## References
+
+1. Tomita, E., Tanaka, A., & Takahashi, H. (2006). "The worst-case time complexity for generating all maximal cliques and computational experiments." *Theoretical Computer Science, 363*(1), 28-42.
+2. Eppstein, D., Löffler, M., & Strash, D. (2010). "Listing All Maximal Cliques in Sparse Graphs in Near-Optimal Time." In *Algorithms and Computation* (pp. 403-414).
+3. Chiba, N., & Nishizeki, T. (1985). "Arboricity and Subgraph Listing Algorithms." *SIAM Journal on Computing, 14*(1), 210-223.

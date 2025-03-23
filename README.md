@@ -22,10 +22,9 @@ This repository consists of six C++ files:
 ## Installation and Setup
 
 1. **Clone the repository:**
-git clone https://github.com/your-username/maximal-clique-enumeration.git
-cd maximal-clique-enumeration
+[git clone https://github.com/charan119/clique-project/tree/main]
+cd clique-project
 
-text
 
 2. **Download the datasets:**
 
@@ -41,7 +40,6 @@ Place the downloaded files in the same folder as the source code.
 Use the following command (assuming you have a C++ compiler like g++ installed):
 g++ -O3 -std=c++11 main.cpp graph.cpp tomita.cpp eppstein.cpp chiba.cpp -o maximal_cliques
 
-text
 
 ## Usage
 

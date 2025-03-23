@@ -22,7 +22,7 @@ This repository consists of six C++ files:
 ## Installation and Setup
 
 1. **Clone the repository:**
-[git clone https://github.com/charan119/clique-project/tree/main]
+[git clone https://github.com/charan119/clique-project/]
 cd clique-project
 
 

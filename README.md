@@ -75,27 +75,27 @@ All datasets are available in our [Google Drive folder](https://drive.google.com
 
 Our team consists of five members, each contributing to different aspects of the project:
 
-1. **Kasina Sahiti:**
+1. **Kasina Sahiti(2022A7PS0132H):**
    - Implemented the Tomita et al. algorithm (`tomita.cpp`).
    - Assisted with the graph loading functionality.
    - Conducted performance analysis for small datasets.
 
-2. **Valavala Charan Teja:**
+2. **Valavala Charan Teja(2022A7PS0059H):**
    - Implemented the Eppstein et al. algorithm (`eppstein.cpp`).
    - Designed and optimized the degeneracy ordering computation.
    - Performed performance tuning for medium-sized datasets.
 
-3. **Saksham Daga:**
+3. **Saksham Daga(2022A7PS1323H):**
    - Implemented the Chiba and Nishizeki algorithm (`chiba.cpp`).
    - Created the time constraint mechanism for large datasets.
    - Documented algorithm complexity analysis.
 
-4. **Kunal:**
+4. **Kunal Maheshwari(2022A7PS0227H):**
    - Developed the graph data structures and utilities (`graph.h`, `graph.cpp`).
    - Implemented the main integration of the project (`main.cpp`).
    - Ensured cross-platform compatibility.
 
-5. **Aryan Saini:**
+5. **Aryan Saini(2022A7PS1796H):**
    - Performed experimental evaluation and analysis.
    - Created visualizations of the results.
    - Developed the project website.

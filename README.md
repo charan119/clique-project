@@ -38,7 +38,7 @@ Place the downloaded files in the same folder as the source code.
 3. **Compile the program:**
 
 Use the following command (assuming you have a C++ compiler like g++ installed):
-g++ -O3 -std=c++11 main.cpp graph.cpp tomita.cpp eppstein.cpp chiba.cpp -o maximal_cliques
+'g++ -O3 -std=c++11 main.cpp graph.cpp tomita.cpp eppstein.cpp chiba.cpp -o maximal_cliques'
 
 
 ## Usage
@@ -46,15 +46,14 @@ g++ -O3 -std=c++11 main.cpp graph.cpp tomita.cpp eppstein.cpp chiba.cpp -o maxim
 Run the program with one of the dataset files as a command-line argument:
 
 For the Wiki-Vote dataset (smallest)
-./maximal_cliques Wiki-Vote.txt
+'maximal_cliques.exe Wiki-Vote.txt'
 
 For the Email-Enron dataset (medium)
-./maximal_cliques Email-Enron.txt
+'maximal_cliques.exe Email-Enron.txt'
 
 For the as-skitter dataset (largest)
-./maximal_cliques as-skitter.txt
+'maximal_cliques.exe as-skitter.txt'
 
-text
 
 The program will:
 1. Load the graph from the specified file.
@@ -106,4 +105,5 @@ Our team consists of five members, each contributing to different aspects of the
 
 For detailed experimental results, visualizations, and more information about this project, please visit our [project website](https://charan119.github.io/).
 
-
+## Project Repository
+ [project repo]([https://github.com/charan119/clique-project]).

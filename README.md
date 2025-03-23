@@ -106,4 +106,4 @@ Our team consists of five members, each contributing to different aspects of the
 For detailed experimental results, visualizations, and more information about this project, please visit our [project website](https://charan119.github.io/).
 
 ## Project Repository
- [project repo]([https://github.com/charan119/clique-project]).
+ [To visit our project repository](https://github.com/charan119/clique-project).

@@ -6,10 +6,9 @@
 #include <string>
 #include <chrono>
 
-// Forward declarations
 std::pair<std::vector<std::vector<int>>, double> runTomita(const Graph& graph);
-std::pair<std::vector<std::vector<int>>, double> runEppstein(const Graph& graph);
-std::pair<std::vector<std::vector<int>>, double> runChiba(const Graph& graph);
+std::pair<std::vector<std::vector<int>>, double> launchEppstein(const Graph& graph);
+std::pair<std::vector<std::vector<int>>, double> startChiba(const Graph& graph);
 
 void analyzeCliques(const std::vector<std::vector<int>>& cliques) {
     int maxSize = 0;
@@ -42,7 +41,6 @@ int main(int argc, char* argv[]) {
     std::string filename = argv[1];
     std::cout << "Reading graph from " << filename << "..." << std::endl;
     
-    // Read graph
     Graph graph = readGraph(filename);
     
     int nodeCount = 0;
@@ -54,24 +52,21 @@ int main(int argc, char* argv[]) {
     
     std::cout << "Graph loaded with " << nodeCount << " non-isolated nodes." << std::endl;
     std::cout << "Graph has " << countEdges(graph) << " edges." << std::endl;
-    
-    // Run algorithms
     std::cout << "\nRunning Tomita algorithm..." << std::endl;
     std::pair<std::vector<std::vector<int>>, double> t_result = runTomita(graph);
     std::vector<std::vector<int>> t_cliques = t_result.first;
     double t_time = t_result.second;
     
     std::cout << "\nRunning Eppstein algorithm..." << std::endl;
-    std::pair<std::vector<std::vector<int>>, double> e_result = runEppstein(graph);
+    std::pair<std::vector<std::vector<int>>, double> e_result = launchEppstein(graph);
     std::vector<std::vector<int>> e_cliques = e_result.first;
     double e_time = e_result.second;
     
     std::cout << "\nRunning Chiba algorithm..." << std::endl;
-    std::pair<std::vector<std::vector<int>>, double> c_result = runChiba(graph);
+    std::pair<std::vector<std::vector<int>>, double> c_result = startChiba(graph);
     std::vector<std::vector<int>> c_cliques = c_result.first;
     double c_time = c_result.second;
     
-    // Report results
     std::cout << "\n=========== Results ===========" << std::endl;
     std::cout << "Tomita algorithm: " << t_cliques.size() 
               << " cliques in " << std::fixed << std::setprecision(2) << t_time << " seconds" << std::endl;
@@ -80,9 +75,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Chiba algorithm: " << c_cliques.size() 
               << " cliques in " << std::fixed << std::setprecision(2) << c_time << " seconds" << std::endl;
     
-    // Analyze the cliques from one of the algorithms (they should all produce the same results)
     std::cout << "\n=========== Analysis ===========" << std::endl;
     analyzeCliques(t_cliques);
-    
     return 0;
 }

@@ -108,16 +108,4 @@ Our team consists of five members, each contributing to different aspects of the
 
 For detailed experimental results, visualizations, and more information about this project, please visit our [project website](https://charan119.github.io/).
 
-## Theoretical Background
 
-The three implemented algorithms provide different approaches for maximal clique enumeration:
-
-- **Tomita et al.'s Algorithm:** Uses a pivot selection strategy within the Bron-Kerbosch framework to reduce the search space.
-- **Eppstein et al.'s Algorithm:** Employs graph degeneracy as a means to limit the number of candidates in sparse graphs.
-- **Chiba and Nishizeki's Algorithm:** Leverages the graph's arboricity to efficiently list all cliques.
-
-## References
-
-1. Tomita, E., Tanaka, A., & Takahashi, H. (2006). "The worst-case time complexity for generating all maximal cliques and computational experiments." *Theoretical Computer Science, 363*(1), 28-42.
-2. Eppstein, D., Löffler, M., & Strash, D. (2010). "Listing All Maximal Cliques in Sparse Graphs in Near-Optimal Time." In *Algorithms and Computation* (pp. 403-414).
-3. Chiba, N., & Nishizeki, T. (1985). "Arboricity and Subgraph Listing Algorithms." *SIAM Journal on Computing, 14*(1), 210-223.

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximal Clique Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --accent: #00ff88;
+            --grid-color: #333333;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dataset-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--grid-color);
+        }
+
+        .dataset-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.1);
+        }
+
+        .card-content {
+            display: none;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--grid-color);
+            margin-top: 1rem;
+        }
+
+        .chart-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-box {
+            background: #2a2a2a;
+            padding: 1.2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .algo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .algo-card {
+            background: #252525;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--grid-color);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: var(--accent);
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            color: var(--accent);
+            margin: 0 0 1rem 0;
+        }
+
+        canvas {
+            width: 100%!important;
+            height: 400px!important;
+        }
+
+        .github-link {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent);
+            color: #121212;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .github-link:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Maximal Clique Analysis</h1>
+        
+        <!-- Dataset Cards -->
+        <div class="dataset-card" onclick="toggleContent('wiki')">
+            <h2>WikiVote Dataset</h2>
+            <div id="wiki-content" class="card-content"></div>
+        </div>
+
+        <div class="dataset-card" onclick="toggleContent('enron')">
+            <h2>Email-Enron Dataset</h2>
+            <div id="enron-content" class="card-content"></div>
+        </div>
+
+        <div class="dataset-card" onclick="toggleContent('skitter')">
+            <h2>AS-Skitter Dataset</h2>
+            <div id="skitter-content" class="card-content"></div>
+        </div>
+    </div>
+
+    <a href="https://github.com/yourusername/clique-analysis" class="github-link" target="_blank">
+        View on GitHub
+    </a>
+
+    <script>
+        const datasetData = {
+            wiki: {
+                execution: { Tomita: 2.61, Eppstein: 4.75, Chiba: 1.85 },
+                cliques: 459002,
+                maxSize: 17,
+                distribution: {
+                    2: 8655, 3: 13718, 4: 27292, 5: 48416, 6: 68872,
+                    7: 83266, 8: 76732, 9: 54456, 10: 35470, 11: 21736,
+                    12: 11640, 13: 5449, 14: 2329, 15: 740, 16: 208, 17: 23
+                }
+            },
+            enron: {
+                execution: { Tomita: 8.44, Eppstein: 7.70, Chiba: 1.40 },
+                cliques: 226859,
+                maxSize: 20,
+                distribution: {
+                    2: 14070, 3: 7077, 4: 13319, 5: 18143, 6: 22715,
+                    7: 25896, 8: 24766, 9: 22884, 10: 21393, 11: 17833,
+                    12: 15181, 13: 11487, 14: 7417, 15: 3157, 16: 1178,
+                    17: 286, 18: 41, 19: 10, 20: 6
+                }
+            },
+            skitter: {
+                execution: { Tomita: 536869, Eppstein: 3410914, Chiba: 298673 },
+                cliques: 37322355,
+                maxSize: 67,
+                distribution: {
+                    2: 2319807, 3: 3171609, 4: 1823321, 5: 939336, 6: 684873,
+                    7: 598284, 8: 588889, 9: 608937, 10: 665661, 11: 728098,
+                    12: 798073, 13: 877282, 14: 945194, 15: 980831, 16: 939987,
+                    17: 839330, 18: 729601, 19: 639413, 20: 600192, 21: 611976,
+                    22: 640890, 23: 673924, 24: 706753, 25: 753633, 26: 818353,
+                    27: 892719, 28: 955212, 29: 999860, 30: 1034106, 31: 1055653,
+                    32: 1017560, 33: 946717, 34: 878552, 35: 809485, 36: 744634,
+                    37: 663650, 38: 583922, 39: 520239, 40: 474301, 41: 420796,
+                    42: 367879, 43: 321829, 44: 275995, 45: 222461, 46: 158352,
+                    47: 99522, 48: 62437, 49: 39822, 50: 30011, 51: 25637,
+                    52: 17707, 53: 9514, 54: 3737, 55: 2042, 56: 1080,
+                    57: 546, 58: 449, 59: 447, 60: 405, 61: 283,
+                    62: 242, 63: 146, 64: 84, 65: 49, 66: 22, 67: 4
+                }
+            }
+        };
+
+        function toggleContent(dataset) {
+            const content = document.getElementById(`${dataset}-content`);
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            if (content.style.display === 'block' && !content.hasChildNodes()) {
+                renderDatasetContent(dataset, content);
+            }
+        }
+
+        function renderDatasetContent(dataset, container) {
+            const data = datasetData[dataset];
+            
+            // Create stats section
+            const statsHTML = `
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <h3>Total Cliques</h3>
+                        <p>${data.cliques.toLocaleString()}</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Largest Clique</h3>
+                        <p>Size ${data.maxSize}</p>
+                    </div>
+                </div>
+            `;
+
+            // Create algorithm info
+            const algoHTML = `
+                <div class="algo-grid">
+                    <div class="algo-card">
+                        <h3>Tomita Algorithm</h3>
+                        <p>Time: ${data.execution.Tomita}s</p>
+                        <p>Classic branch-and-bound algorithm using depth-first search</p>
+                    </div>
+                    <div class="algo-card">
+                        <h3>Eppstein Algorithm</h3>
+                        <p>Time: ${data.execution.Eppstein}s</p>
+                        <p>Uses degeneracy ordering for near-optimal time in sparse graphs</p>
+                    </div>
+                    <div class="algo-card">
+                        <h3>Chiba Algorithm</h3>
+                        <p>Time: ${data.execution.Chiba}s</p>
+                        <p>Leverages arboricity for efficient subgraph listing</p>
+                    </div>
+                </div>
+            `;
+
+            // Create chart containers
+            const chartsHTML = `
+                <div class="chart-container">
+                    <canvas id="${dataset}-time-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="${dataset}-dist-chart"></canvas>
+                </div>
+            `;
+
+            container.innerHTML = statsHTML + algoHTML + chartsHTML;
+            
+            // Create charts
+            createTimeChart(dataset, data.execution);
+            createDistributionChart(dataset, data.distribution);
+        }
+
+        function createTimeChart(dataset, times) {
+            const ctx = document.getElementById(`${dataset}-time-chart`);
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(times),
+                    datasets: [{
+                        label: 'Execution Time (seconds)',
+                        data: Object.values(times),
+                        backgroundColor: '#00ff8866',
+                        borderColor: '#00ff88',
+                        borderWidth: 2,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: 'Algorithm Execution Times' }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#333333' },
+                            ticks: { color: '#ffffff' }
+                        },
+                        x: {
+                            grid: { color: '#333333' },
+                            ticks: { color: '#ffffff' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createDistributionChart(dataset, distribution) {
+            const ctx = document.getElementById(`${dataset}-dist-chart`);
+            const sizes = Object.keys(distribution).map(Number).sort((a,b) => a-b);
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sizes,
+                    datasets: [{
+                        label: 'Clique Count',
+                        data: sizes.map(s => distribution[s]),
+                        backgroundColor: '#00ff8833',
+                        borderColor: '#00ff88',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: 'Clique Size Distribution' }
+                    },
+                    scales: {
+                        y: {
+                            type: 'logarithmic',
+                            grid: { color: '#333333' },
+                            ticks: { color: '#ffffff' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Clique Size', color: '#ffffff' },
+                            grid: { color: '#333333' },
+                            ticks: { color: '#ffffff' }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
